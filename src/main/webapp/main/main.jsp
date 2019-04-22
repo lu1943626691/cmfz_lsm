@@ -27,6 +27,9 @@
                         //二层遍历，遍历list集合
                         var c = "<div align='center'>";
                         $.each(first.list, function (index2, second) {
+                            var options = "data-options=" + "iconCls:" + second.icon_cls
+                            // alert(options)
+
                             var child = JSON.stringify(second)
                             c += "<p><a class='easyui-linkbutton' onclick='addTabs(" + child + ")'>" + second.title + "</a></p>";
 

@@ -103,8 +103,20 @@
                     $.messager.alert('提示', '章节才能播放哦');
                     return;
                 } else {
-                    location.href = "${pageContext.request.contextPath}/chapter/play?title=" + rowDate.title + "&chapterUrl=" + rowDate.chapterUrl;
+
+                    $("#radio").prop("src", "${pageContext.request.contextPath}" + rowDate.chapterUrl)
+                    $("#music").dialog("open")
+
                 }
+                /*else {
+                    location.href = "${pageContext.request.contextPath}/chapter/play?title=" + rowDate.title + "&chapterUrl=" + rowDate.chapterUrl;
+                }*/
+            }
+        }, '-', {
+            text: '导出exl表',
+            iconCls: 'icon-add',
+            handler: function () {
+                location.href = "${pageContext.request.contextPath}/album/selectExl";
             }
         }]
 
@@ -294,3 +306,11 @@
     </form>
 </div>
 <!--添加章节-->
+
+<div id="music" class="easyui-dialog" data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,">
+
+    <audio src="" controls="controls" type="audio/wav" autoplay="autoplay" width="30px" id="radio"></audio>
+
+</div>
+
+

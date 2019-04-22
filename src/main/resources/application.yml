@@ -22,4 +22,4 @@ spring:
       max-request-size: 100MB
 mybatis:
   type-aliases-package: com.baizhi.entity
-  base-packages: classpath:classpath:com/baizhi/mapping/*Mapping.xml
+  base-packages: classpath:classpath:com/baizhi/mapper/*Mapper.xml

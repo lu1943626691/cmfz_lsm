@@ -2,6 +2,7 @@ package com.baizhi.service;
 
 import com.baizhi.entity.Banner;
 
+import java.util.List;
 import java.util.Map;
 
 public interface BannerService {
@@ -12,4 +13,6 @@ public interface BannerService {
     public void update(Banner banner);
 
     public void delete(Banner banner);
+
+    List<Banner> selectExl();
 }

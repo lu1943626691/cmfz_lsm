@@ -2,11 +2,11 @@
 <script>
     $(function () {
         var tb = [{
-            text: '添加',
+            text: '注册',
             iconCls: 'icon-add',
             handler: function () {
 
-                $('#dd_banner').dialog('open');
+                $('#dd_user').dialog('open');
             }
         }, '-', {
             text: '修改',
@@ -26,14 +26,14 @@
             text: '删除',
             iconCls: 'icon-remove',
             handler: function () {
-                $('#dg_banner').edatagrid('destroyRow');
+                $('#dg_user').edatagrid('destroyRow');
 
             }
         }, '-', {
             text: '保存',
             iconCls: 'icon-save',
             handler: function () {
-                $('#dg_banner').edatagrid('saveRow');
+                $('#dg_user').edatagrid('saveRow');
             }
         }, '-', {
             text: '导出excl表 ',
@@ -50,7 +50,8 @@
                             }
                     }
                     })*/
-                location.href = "${pageContext.request.contextPath}/banner/selectExl";
+
+                location.href = "${pageContext.request.contextPath}/user/selectExl";
 
 
             }
@@ -63,43 +64,57 @@
             cache: false,
             modal: true
         });
-        $("#dg_banner").edatagrid({
+        $("#dg_user").edatagrid({
             /*onDblClickRow:function(rowIndex,rowData){
                  //打开修改对话框，把要修改的内容写入到修改对话框中
                   toOpenUpdateDialog(rowData);
              },*/
-            url: '${pageContext.request.contextPath}/banner/selectAll',
+            url: '${pageContext.request.contextPath}/user/selectAll',
             //保存
-            saveUrl: '${pageContext.request.contextPath}/banner/update',
+            saveUrl: '${pageContext.request.contextPath}/user/update',
             //删除
-            updateUrl: '${pageContext.request.contextPath}/banner/update',
-            destroyUrl: '${pageContext.request.contextPath}/banner/delete',
+            updateUrl: '${pageContext.request.contextPath}/user/update',
+            destroyUrl: '${pageContext.request.contextPath}/user/delete',
             fitColumns: true,
+            fixed: true,
             idField: 'id',
             columns: [[
                 {title: '编号', field: 'id', width: 60},
-                {field: 'title', title: '图片名称', width: 60},
-                {field: 'img_path', title: '路径', width: 80},
-                {field: 'create_date', title: '创建时间', width: 150},
+                {field: 'name', title: '用户名', width: 60},
+                {
+                    field: 'sex', title: '性别', width: 50,
+                    formatter: function (value, row, index) {
+                        if (value == 1) {
+                            return "男";
+                        } else {
+                            return "女";
+                        }
+                    }
+                },
+                {field: 'province', title: '省', width: 70},
+                {field: 'city', title: '市', width: 60},
+                {field: 'sign', title: '签名', width: 150},
                 {
                     field: 'status', title: '状态', width: 80, editor: {
                         type: 'text',
                         options: {required: true}
                     }
-                }
+                },
+                {field: 'phone', title: '手机号', width: 150},
+                {field: 'createDate', title: '注册时间', width: 150},
 
             ]],
             pagination: true,
-            pageSize: 3,
-            pageList: [3, 6, 9],
+            pageSize: 2,
+            pageList: [2, 3, 4],
             toolbar: tb,
             //加减标识
             view: detailview,
             detailFormatter: function (rowIndex, rowData) {
                 return '<table><tr>' +
-                    '<td rowspan=5 style="border:10"><img src="${pageContext.request.contextPath}/' + rowData.img_path + '" style="height:50px;"></td>' +
+                    '<td rowspan=5 style="border:10"><img src="${pageContext.request.contextPath}/' + rowData.headImg + '" style="height:50px;"></td>' +
                     '<td style="border:0">' +
-                    '<p>名称: ' + rowData.title + '</p>' +
+                    '<p>名称: ' + rowData.name + '</p>' +
                     '<p>Status: ' + rowData.status + '</p>' +
                     '</td>' +
                     '</tr></table>';
@@ -110,16 +125,15 @@
     })
 
     //添加
-    function addBanner() {
+    function addUser() {
         $("#addForm").form("submit", {
-            url: "${pageContext.request.contextPath}/banner/insert",
+            url: "${pageContext.request.contextPath}/user/insert",
             success: function (data) {
                 data = JSON.parse(data)
                 if (data.isAdd) {
-                    $("#dg_banner").edatagrid("load");
-                    $('#dd_banner').dialog('close');
-                    $("#title").val("");
-                    $("#img_path").val("")
+                    $("#dg_user").edatagrid("load");
+                    $('#dd_user').dialog('close');
+                    $("#addForm").form("clear");
                 } else {
                     $.messager.alert('提示', '添加失败，请仔细检查');
                 }
@@ -155,33 +169,55 @@
     }
 </script>
 
-<table id="dg_banner"></table>
+<table id="dg_user"></table>
 
-<div id="dd_banner" class="easyui-dialog" title="添加" collapsible=true, style="width:400px;height:200px;" data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,
+<div id="dd_user" class="easyui-dialog" title="添加" collapsible=true, style="width:400px;height:280px;" data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,
             buttons:[{
 				text:'保存',
 				handler:function(){
-				    addBanner();
+				    addUser();
 				}
 			},{
 				text:'关闭',
 				handler:function(){
-				   $('#dd_banner').dialog('closed');
+				   $('#dd_user').dialog('close');
 				}
 			}]">
 
 
     <form id="addForm" method="post" enctype="multipart/form-data">
         <div>
-            <label for="title">名称:</label>
-            <input id="title" type="text" name="title" data-options="required:true"/>
+            <label for="name">用户名:</label>
+            <input id="name" type="text" name="name" data-options="required:true"/>
         </div>
         <div>
-            <label for="img_path">路径:</label>
-            <input id="img_path" class="easyui-filebox" name="file1" style="width:300px">
+            <label for="password">密码:</label>
+            <input id="password" type="password" name="password" data-options="required:true"/>
         </div>
-        状态<input type="radio" value="on" name="status">开
-        <input type="radio" value="off" name="status">关
+        <div>
+            性别<input type="radio" value="1" name="sex" id="man">男
+            <input type="radio" value="0" name="sex" id="feman">女
+        </div>
+        <div>
+            <label for="sign">签名:</label>
+            <input id="sign" type="type" name="sign" data-options="required:true"/>
+        </div>
+        <div>
+            <label for="province">省份:</label>
+            <input id="province" type="text" name="province" data-options="required:true"/>
+        </div>
+        <div>
+            <label for="city">城市:</label>
+            <input id="city" type="text" name="city" data-options="required:true"/>
+        </div>
+        <div>
+            <label for="phone">电话号码:</label>
+            <input id="phone" type="text" name="phone" data-options="required:true"/>
+        </div>
+        <div>
+            <label for="headImg">头像:</label>
+            <input id="headImg" class="easyui-filebox" name="img" style="width:300px" data-options="buttonText:'选择头像'">
+        </div>
     </form>
 </div>
 
@@ -199,7 +235,7 @@
 			}]">
     <form id="updateForm" method="post" enctype="multipart/form-data">
         <input type="hidden" id="id" name="id"/>
-        名称<input name="title" id="name"></br>
+        名称<input name="title" id="name2"></br>
 
         <div>
             <label for="path">路径:</label>

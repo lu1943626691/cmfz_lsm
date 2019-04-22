@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -42,5 +43,10 @@ public class BannerServiceImpl implements BannerService {
     @Override
     public void delete(Banner banner) {
         bannerMapper.deleteByPrimaryKey(banner);
+    }
+
+    @Override
+    public List<Banner> selectExl() {
+        return bannerMapper.selectAll();
     }
 }
