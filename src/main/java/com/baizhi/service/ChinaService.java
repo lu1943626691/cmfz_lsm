@@ -1,9 +1,7 @@
 package com.baizhi.service;
 
-import com.baizhi.entity.China;
-
-import java.util.List;
+import java.util.Map;
 
 public interface ChinaService {
-    public List<China> selectBySex(Integer sex);
+    public Map selectBySex(Integer sex);
 }

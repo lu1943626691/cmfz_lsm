@@ -1,6 +1,8 @@
 <%@page contentType="text/html; UTF-8" pageEncoding="UTF-8" isELIgnored="false" language="java" %>
+<script type="text/javascript" src="http://cdn-hangzhou.goeasy.io/goeasy.js"></script>
 <script>
     $(function () {
+
         var tb = [{
             text: '注册',
             iconCls: 'icon-add',
@@ -192,7 +194,7 @@
         </div>
         <div>
             <label for="password">密码:</label>
-            <input id="password" type="password" name="password" data-options="required:true"/>
+            <input id="password" type="password" name="passWord" data-options="required:true"/>
         </div>
         <div>
             性别<input type="radio" value="1" name="sex" id="man">男

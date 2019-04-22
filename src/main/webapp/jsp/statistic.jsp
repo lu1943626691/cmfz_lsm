@@ -43,9 +43,30 @@
 
     */
     // 异步加载统计信息
+
     $.post("${pageContext.request.contextPath }/user/activeUser", function (data) {
-        console.log(data);
-        // 使用刚指定的配置项和数据显示图表。
+        //接收数据时，message就会有数据
+        var goEasy = new GoEasy({
+            appkey: "BC-30adc5117b494389ae69e971d734008a"
+        });
+        goEasy.subscribe({
+            channel: "lsm",
+            onMessage: function (message) {
+                console.log(message)
+                var content = JSON.parse(message.content);
+                myChart.setOption({
+                    xAxis: {
+                        data: content.intervals
+                    },
+                    series: [{
+                        // 根据名字对应到相应的系列
+                        name: '活跃用户',
+                        data: content.counts
+                    }]
+                });
+            },
+        });
+        //直接查询，就是查询所有，data就会有数据
         myChart.setOption({
             xAxis: {
                 data: data.intervals

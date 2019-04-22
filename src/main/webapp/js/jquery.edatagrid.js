@@ -422,7 +422,7 @@
                         for (var i = 0; i < rows.length; i++) {
                             _del(rows[i]);
                         }
-                        dg.datagrid('clearSelections');
+                        dg.datagrid('reload');
                     }
                 });
 

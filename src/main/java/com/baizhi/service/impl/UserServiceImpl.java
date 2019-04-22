@@ -49,7 +49,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer selectDate(Integer date) {
-        return userMapper.selectDate(date);
+    public Map selectDate() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("intervals", new String[]{"7天", "15天", "30天", "三个月", "半年", "一年"});
+        map.put("counts", new int[]{userMapper.selectDate(7), userMapper.selectDate(15), userMapper.selectDate(30), userMapper.selectDate(100), userMapper.selectDate(200), userMapper.selectDate(365)});
+        return map;
     }
 }

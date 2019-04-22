@@ -13,9 +13,13 @@
     <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
     <script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
     <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="http://cdn-hangzhou.goeasy.io/goeasy.js"></script>
     <script type="text/javascript">
         <!--菜单处理-->
         $(function () {
+            var goEasy = new GoEasy({
+                appkey: "BC-30adc5117b494389ae69e971d734008a"
+            });
             $.ajax({
                 url: '${pageContext.request.contextPath}/menu/selectAll',
                 //javaType:"json",
@@ -31,7 +35,7 @@
                             // alert(options)
 
                             var child = JSON.stringify(second)
-                            c += "<p><a class='easyui-linkbutton' onclick='addTabs(" + child + ")'>" + second.title + "</a></p>";
+                            c += "<p><a class='easyui-linkbutton'   onclick='addTabs(" + child + ")'>" + second.title + "</a></p>";
 
                         })
                         c += "</div>";

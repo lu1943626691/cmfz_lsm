@@ -17,5 +17,5 @@ public interface UserService {
 
     List<User> select();
 
-    Integer selectDate(Integer date);
+    Map selectDate();
 }

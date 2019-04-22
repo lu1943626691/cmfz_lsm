@@ -6,7 +6,9 @@ import com.baizhi.service.ChinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ChinaServiceImpl implements ChinaService {
@@ -14,7 +16,11 @@ public class ChinaServiceImpl implements ChinaService {
     private ChinaMapper chinaMapper;
 
     @Override
-    public List<China> selectBySex(Integer sex) {
-        return chinaMapper.selectBySex(sex);
+    public Map selectBySex(Integer sex) {
+        List<China> list = chinaMapper.selectBySex(sex);
+        Map map = new HashMap();
+        map.put("china", list);
+        return map;
     }
+
 }
