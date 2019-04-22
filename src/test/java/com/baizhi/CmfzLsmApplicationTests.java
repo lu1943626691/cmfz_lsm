@@ -22,7 +22,7 @@ public class CmfzLsmApplicationTests {
         List<Album> albums = albumService.selectAll();
         System.out.println(albums);
     }
-
+//测试
     @Test
     public void aa() {
         GoEasy goEasy = new GoEasy("http://rest-hangzhou.goeasy.io", "BC-30adc5117b494389ae69e971d734008a");
